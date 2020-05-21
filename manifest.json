@@ -1,0 +1,28 @@
+{
+  "name": "Layout Debugger",
+  "description" : "Extension for debugging layouts",
+  "author": "Jen Downs",
+  "version": "1.0",
+  "manifest_version": 2,
+  "permissions": ["activeTab", "tabs", "declarativeContent", "storage", "<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["popup/index.css"],
+      "js": ["popup/index.js"]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup/index.html",
+    "default_icon": "hello.png"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "MacCtrl+Shift+F"
+      },
+      "description": "Opens layout debugging popup"
+    }
+  }
+}
