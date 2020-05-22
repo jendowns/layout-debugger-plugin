@@ -5,12 +5,18 @@ function exampleFunction(toggle, selectors) {
       chrome.tabs.executeScript({ file: "src/index.js" })
     }
   )
- }
- 
+}
+
+const debugClasses = [
+  'container',
+  'container__heading',
+  'container__content',
+]
+
 document.addEventListener("DOMContentLoaded", () => {
   var toggle = document.getElementById("debug-toggle");
  
   toggle.addEventListener("click", (event) => {
-    exampleFunction(event.target.checked, ['body', 'button']);
+    exampleFunction(event.target.checked, debugClasses);
   })
 })
