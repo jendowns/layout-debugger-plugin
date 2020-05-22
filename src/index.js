@@ -7,9 +7,16 @@ function applyStyles() {
       var elements = document.querySelectorAll(`.${debugClass}`);
       if (elements.length > 0) {
         elements.forEach((element) => {
-          const debugElement = document.createElement("div");
+          var debugElement = document.createElement("div");
+
+          var a11yMessage = document.createElement("span");
+          a11yMessage.setAttribute('style', 'position:absolute;height:1px;width:1px;overflow: hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;');
+          a11yMessage.innerHTML = "Debugging class: ";
+          debugElement.appendChild(a11yMessage);
+
+
           debugElement.classList = "debug-message";
-          debugElement.innerHTML = `.${debugClass}`;
+          debugElement.innerHTML += `.${debugClass}`;
           element.appendChild(debugElement);
 
           var rect = element.getBoundingClientRect();
@@ -19,10 +26,11 @@ function applyStyles() {
               position: absolute;
               z-index: 100000000;
               background-color: hotpink;
-              padding: 8px;
               color: black;
-              top: ${rect.top};
-              left: ${rect.left};
+              top: ${rect.top}px;
+              left: ${rect.left}px;
+              opacity: 0.75;
+              font-size: 12px;
             }
           `;
         });
