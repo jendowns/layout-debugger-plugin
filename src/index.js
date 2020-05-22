@@ -1,4 +1,4 @@
-function applyActiveStyles() {
+function applyStyles() {
   let debugStyles = "";
 
   // Generate styles for debug selectors:
@@ -51,7 +51,7 @@ function applyActiveStyles() {
   document.head.appendChild(style);
 }
 
-function applyInactiveStyles() {
+function cleanupStyles() {
   // Remove style tag with debug styles:
   var styleTags = document.querySelectorAll("#debug-styles");
   styleTags.forEach((element) => element.parentNode.removeChild(element));
@@ -62,7 +62,7 @@ function applyInactiveStyles() {
 }
 
 if (options.toggle) {
-  applyActiveStyles();
+  applyStyles();
 } else {
-  applyInactiveStyles();
+  cleanupStyles();
 }
