@@ -2,15 +2,18 @@ function applyStyles() {
   let debugStyles = "";
 
   // Generate styles for debug selectors:
-  if(options.debugSelectors.length > 0) {
-    options.debugSelectors.forEach(debugClass => {
+  if (options.debugSelectors.length > 0) {
+    options.debugSelectors.forEach((debugClass) => {
       var elements = document.querySelectorAll(`.${debugClass}`);
       if (elements.length > 0) {
-        elements.forEach(element => {
-
-          // Check if a debug element has already been appended to this element.
-          // This can happen if an element has multiple classes listed for debugging.
-          var existingDebugElement = element.querySelector('.debug-message');
+        elements.forEach((element) => {
+          /**
+           * Check if a debug message has already been appended to this element.
+           * This can happen if an element has multiple classes listed for debugging.
+           * If true, we need to append the current `debugClass` to the existing message,
+           * to avoid creating extra elements that will end up overlapping and become unreadable.
+           */
+          var existingDebugElement = element.querySelector(".debug-message");
 
           if (existingDebugElement) {
             existingDebugElement.innerHTML += `.${debugClass}`;
@@ -19,7 +22,10 @@ function applyStyles() {
 
           // Ensure that screenreaders have proper context around the debug messages:
           var a11yMessage = document.createElement("span");
-          a11yMessage.setAttribute('style', 'position:absolute;height:1px;width:1px;overflow: hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;');
+          a11yMessage.setAttribute(
+            "style",
+            "position:absolute;height:1px;width:1px;overflow: hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;"
+          );
           a11yMessage.innerHTML = "Debugging class: ";
 
           // Create a new element to display debug info:
@@ -51,8 +57,8 @@ function applyStyles() {
   }
 
   // Generate styles for grid selectors:
-  if(options.gridSelectors.length > 0) {
-    options.gridSelectors.forEach(gridClass => {
+  if (options.gridSelectors.length > 0) {
+    options.gridSelectors.forEach((gridClass) => {
       debugStyles += `
         .${gridClass} {
           outline: 1px solid hotpink;
@@ -72,11 +78,11 @@ function applyStyles() {
 function cleanupStyles() {
   // Remove style tag with debug styles:
   var styleTags = document.querySelectorAll("#debug-styles");
-  styleTags.forEach(element => element.parentNode.removeChild(element));
+  styleTags.forEach((element) => element.parentNode.removeChild(element));
 
   // Remove all debug elements:
   var debugMessages = document.querySelectorAll(".debug-message");
-  debugMessages.forEach(element => element.parentNode.removeChild(element));
+  debugMessages.forEach((element) => element.parentNode.removeChild(element));
 }
 
 if (options.toggle) {
