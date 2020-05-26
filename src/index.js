@@ -8,6 +8,15 @@ function applyStyles() {
       if (elements.length > 0) {
         elements.forEach(element => {
 
+          // Check if a debug element has already been appended to this element.
+          // This can happen if an element has multiple classes listed for debugging.
+          var existingDebugElement = element.querySelector('.debug-message');
+
+          if (existingDebugElement) {
+            existingDebugElement.innerHTML += `.${debugClass}`;
+            return;
+          }
+
           // Ensure that screenreaders have proper context around the debug messages:
           var a11yMessage = document.createElement("span");
           a11yMessage.setAttribute('style', 'position:absolute;height:1px;width:1px;overflow: hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;');

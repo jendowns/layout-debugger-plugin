@@ -12,7 +12,7 @@ function handleToggle(toggle, debugSelectors, gridSelectors) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const debugClasses = ["container__heading", "container__content"];
+  const debugClasses = ["container__heading", "container__content", "container--main"];
   const gridClasses = ["container"];
 
   var toggle = document.getElementById("debug-toggle");
