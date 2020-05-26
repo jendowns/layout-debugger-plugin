@@ -6,16 +6,17 @@ function applyStyles() {
     options.debugSelectors.forEach(debugClass => {
       var elements = document.querySelectorAll(`.${debugClass}`);
       if (elements.length > 0) {
-        elements.forEach((element) => {
-          var debugElement = document.createElement("div");
+        elements.forEach(element => {
 
+          // Ensure that screenreaders have proper context around the debug messages:
           var a11yMessage = document.createElement("span");
           a11yMessage.setAttribute('style', 'position:absolute;height:1px;width:1px;overflow: hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;');
           a11yMessage.innerHTML = "Debugging class: ";
-          debugElement.appendChild(a11yMessage);
 
-
+          // Create a new element to display debug info:
+          var debugElement = document.createElement("div");
           debugElement.classList = "debug-message";
+          debugElement.appendChild(a11yMessage);
           debugElement.innerHTML += `.${debugClass}`;
           element.appendChild(debugElement);
 
@@ -62,11 +63,11 @@ function applyStyles() {
 function cleanupStyles() {
   // Remove style tag with debug styles:
   var styleTags = document.querySelectorAll("#debug-styles");
-  styleTags.forEach((element) => element.parentNode.removeChild(element));
+  styleTags.forEach(element => element.parentNode.removeChild(element));
 
   // Remove all debug elements:
   var debugMessages = document.querySelectorAll(".debug-message");
-  debugMessages.forEach((element) => element.parentNode.removeChild(element));
+  debugMessages.forEach(element => element.parentNode.removeChild(element));
 }
 
 if (options.toggle) {
