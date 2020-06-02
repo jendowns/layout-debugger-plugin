@@ -55,7 +55,7 @@ function applyStyles() {
 
       var elements = document.querySelectorAll(`.${debugClass}`);
       if (elements.length > 0) {
-        elements.forEach((element) => {
+        elements.forEach((element, index) => {
           /**
            * Check if a debug message has already been appended to this element.
            * This can happen if an element has multiple classes listed for debugging.
@@ -77,9 +77,11 @@ function applyStyles() {
           );
           a11yMessage.innerHTML = "Debugging class: ";
 
-          // Create a new element to display debug info:
+          // Create a new element with a unique ID to display debug info:
           var debugElement = document.createElement("div");
           debugElement.classList = "debug-message";
+          const debugID = `debug-message-${index}`;
+          debugElement.id = debugID;
           debugElement.appendChild(a11yMessage);
           debugElement.innerHTML += `.${debugClass}`;
           element.appendChild(debugElement);
@@ -87,7 +89,7 @@ function applyStyles() {
           var rect = element.getBoundingClientRect();
 
           debugStyles += `
-            .${debugClass} > .debug-message {
+            .${debugClass} > .debug-message#${debugID} {
               position: absolute;
               z-index: 100000000;
               background-color: hotpink;
