@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   chrome.storage.sync.get(["debugToggle"], function (result) {
     if (result.debugToggle) {
       toggle.checked = true;
-      handleToggle(result.debugToggle, debugClasses, gridClasses);
+      // No need to re-generate debugging messages...
+      // handleToggle(result.debugToggle, debugClasses, gridClasses);
     }
   });
 
