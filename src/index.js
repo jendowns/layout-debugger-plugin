@@ -65,6 +65,8 @@ function applyStyles() {
           var existingDebugElement = element.querySelector(".debug-message");
 
           if (existingDebugElement) {
+            var lineBreak = document.createElement("div");
+            existingDebugElement.appendChild(lineBreak);
             existingDebugElement.innerHTML += `.${debugClass}`;
             return;
           }
@@ -80,13 +82,16 @@ function applyStyles() {
           // Create a new element with a unique ID to display debug info:
           var debugElement = document.createElement("div");
           debugElement.classList = "debug-message";
-          const debugID = `debug-message-${index}`;
+          var debugID = `debug-message-${index}`;
           debugElement.id = debugID;
           debugElement.appendChild(a11yMessage);
           debugElement.innerHTML += `.${debugClass}`;
           element.appendChild(debugElement);
 
+          // Get accurate dimensions of element being debugged:
           var rect = element.getBoundingClientRect();
+          var computedStyle = window.getComputedStyle(element, null);
+          var height = computedStyle.getPropertyValue("height");
 
           debugStyles += `
             .${debugClass} > .debug-message#${debugID} {
@@ -94,10 +99,11 @@ function applyStyles() {
               z-index: 100000000;
               background-color: hotpink;
               color: black;
-              top: ${rect.top}px;
+              top: ${rect.top + height}px;
               left: ${rect.left}px;
-              opacity: 0.75;
-              font-size: 12px;
+              opacity: 0.9;
+              font-size: 10px;
+              font-weight: 400;
             }
           `;
         });
